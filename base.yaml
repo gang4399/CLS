@@ -7,11 +7,16 @@ dns:
   fake-ip-filter:
     - '+.lan'
     - '+.local'
+    - '+.direct'
+    - '+.msftncsi.com'
+    - '+.msftconnecttest.com'
+    - 'lens.l.google.com'
   dns-hijack:
     - 'any:53'
   nameserver:
     - 119.29.29.29
     - 223.5.5.5
+    - https://doh.pub/dns-query
   fallback:
     - https://dns.google/dns-query
     - https://1.1.1.1/dns-query
