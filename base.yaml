@@ -36,7 +36,7 @@ dns:
     ipcidr:
       - 240.0.0.0/4
       - 0.0.0.0/32
-    # ========== 核心修复：强制Google域名用国外DNS ==========
+    # ============================
     domain:
       - +.google.com
       - +.googleapis.com
@@ -46,7 +46,7 @@ dns:
       - +.googlevideo.com
       - +.android.com
       - +.youtube.com
-    # ===================================================
+    # ============================
 
 tun:
   enable: true
@@ -64,6 +64,7 @@ tun:
     - 10.0.0.0/8
   mtu: 9000
 
+# ==============================
 rules:
   # Google Play Store
   - DOMAIN-SUFFIX,play.google.com,🇬 谷歌全球
