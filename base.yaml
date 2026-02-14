@@ -64,9 +64,23 @@ tun:
     - 10.0.0.0/8
   mtu: 9000
 
-# ==============================
 rules:
+  # ==========================================
+  # 出境易容器专用规则
+  # ==========================================
+  - DOMAIN,prod.chujingapp.com,🇬 谷歌全球
+  - DOMAIN,gp-app.chujingapp.com,🇬 谷歌全球
+  - DOMAIN,prod-static.chujingapp.com,🇬 谷歌全球
+  - DOMAIN,analysis.chujingapp.com,🇬 谷歌全球
+  - DOMAIN-SUFFIX,platform.dbankcloud.com,🇬 谷歌全球
+  - DOMAIN-SUFFIX,chujingapp.com,🇬 谷歌全球
+  - DOMAIN-SUFFIX,dbankcloud.com,🇬 谷歌全球
+  - DOMAIN-SUFFIX,dbankcloud.cn,🇬 谷歌全球
+  - DOMAIN-SUFFIX,hicloud.com,🇬 谷歌全球
+  
+  # ==========================================
   # Google Play Store
+  # ==========================================
   - DOMAIN-SUFFIX,play.google.com,🇬 谷歌全球
   - DOMAIN-SUFFIX,play.googleapis.com,🇬 谷歌全球
   - DOMAIN,android.clients.google.com,🇬 谷歌全球
@@ -75,7 +89,9 @@ rules:
   - DOMAIN-SUFFIX,market.android.com,🇬 谷歌全球
   - DOMAIN,connectivitycheck.gstatic.com,🇬 谷歌全球
   
+  # ==========================================
   # Google认证
+  # ==========================================
   - DOMAIN-SUFFIX,accounts.google.com,🇬 谷歌全球
   - DOMAIN-SUFFIX,accounts.youtube.com,🇬 谷歌全球
   - DOMAIN,oauth.google.com,🇬 谷歌全球
@@ -83,9 +99,3 @@ rules:
   - DOMAIN,myaccount.google.com,🇬 谷歌全球
   - DOMAIN,signin.google.com,🇬 谷歌全球
   - DOMAIN-SUFFIX,googleadservices.com,🇬 谷歌全球
-  
-  # 出境易容器
-  - DOMAIN-SUFFIX,chujingapp.com,🇬 谷歌全球
-  - DOMAIN-SUFFIX,dbankcloud.com,🇬 谷歌全球
-  - DOMAIN-SUFFIX,dbankcloud.cn,🇬 谷歌全球
-  - DOMAIN-SUFFIX,hicloud.com,🇬 谷歌全球
