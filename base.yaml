@@ -1,3 +1,4 @@
+ipv6: false
 dns:
   enable: true
   listen: 0.0.0.0:53
