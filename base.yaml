@@ -1,4 +1,5 @@
 ipv6: false
+
 dns:
   enable: true
   listen: 0.0.0.0:53
@@ -6,36 +7,59 @@ dns:
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter:
-    - '+.lan'
-    - '+.local'
-    - '+.direct'
-    - '+.msftncsi.com'
-    - '+.msftconnecttest.com'
-    - 'lens.l.google.com'
-  dns-hijack:
-    - 'any:53'
+    - +.lan
+    - +.local
+    - +.direct
+    - +.msftncsi.com
+    - +.msftconnecttest.com
+    - lens.l.google.com
+  
+  # ==============================
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+  # ==============================
+  
   nameserver:
     - 119.29.29.29
     - 223.5.5.5
     - https://doh.pub/dns-query
+  
   fallback:
     - https://dns.google/dns-query
     - https://1.1.1.1/dns-query
     - tls://1.0.0.1:853
+  
   fallback-filter:
     geoip: true
     geoip-code: CN
     ipcidr:
       - 240.0.0.0/4
+      - 0.0.0.0/32
+    # ========== 核心修复：强制Google域名用国外DNS ==========
+    domain:
+      - +.google.com
+      - +.googleapis.com
+      - +.gstatic.com
+      - +.ggpht.com
+      - +.googleusercontent.com
+      - +.googlevideo.com
+      - +.android.com
+      - +.youtube.com
+    # ===================================================
 
 tun:
   enable: true
   stack: gvisor
   auto-route: true
   auto-detect-interface: true
-  strict-route: true 
-  route-address: 
+  strict-route: true
+  dns-hijack:
+    - any:53
+    - tcp://any:53
+  route-address:
     - 0.0.0.0/0
-  route-exclude-address: 
+  route-exclude-address:
     - 192.168.0.0/16
     - 10.0.0.0/8
+  mtu: 9000
