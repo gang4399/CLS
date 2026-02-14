@@ -71,6 +71,7 @@ rules:
   - DOMAIN-SUFFIX,play.googleapis.com,🇬 谷歌全球
   - DOMAIN,android.clients.google.com,🇬 谷歌全球
   - DOMAIN,android.googleapis.com,🇬 谷歌全球
+  - DOMAIN,services.googleapis.cn,🇬 谷歌全球
   - DOMAIN-SUFFIX,market.android.com,🇬 谷歌全球
   - DOMAIN,connectivitycheck.gstatic.com,🇬 谷歌全球
   
@@ -79,7 +80,6 @@ rules:
   - DOMAIN-SUFFIX,accounts.youtube.com,🇬 谷歌全球
   - DOMAIN,oauth.google.com,🇬 谷歌全球
   - DOMAIN,oauth2.googleapis.com,🇬 谷歌全球
-  - DOMAIN,services.googleapis.cn,🇬 谷歌全球
   - DOMAIN,myaccount.google.com,🇬 谷歌全球
   - DOMAIN,signin.google.com,🇬 谷歌全球
   - DOMAIN-SUFFIX,googleadservices.com,🇬 谷歌全球
