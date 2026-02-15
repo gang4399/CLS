@@ -1,0 +1,28 @@
+# 出境易容器专用规则
+DOMAIN,prod.chujingapp.com
+DOMAIN,gp-app.chujingapp.com
+DOMAIN,prod-static.chujingapp.com
+DOMAIN,analysis.chujingapp.com
+DOMAIN-SUFFIX,platform.dbankcloud.com
+DOMAIN-SUFFIX,chujingapp.com
+DOMAIN-SUFFIX,dbankcloud.com
+DOMAIN-SUFFIX,dbankcloud.cn
+DOMAIN-SUFFIX,hicloud.com
+
+# Google Play Store专用规则
+DOMAIN-SUFFIX,play.google.com
+DOMAIN-SUFFIX,play.googleapis.com
+DOMAIN,android.clients.google.com
+DOMAIN,android.googleapis.com
+DOMAIN,services.googleapis.cn
+DOMAIN-SUFFIX,market.android.com
+DOMAIN,connectivitycheck.gstatic.com
+
+# Google认证专用规则
+DOMAIN-SUFFIX,accounts.google.com
+DOMAIN-SUFFIX,accounts.youtube.com
+DOMAIN,oauth.google.com
+DOMAIN,oauth2.googleapis.com
+DOMAIN,myaccount.google.com
+DOMAIN,signin.google.com
+DOMAIN-SUFFIX,googleadservices.com
