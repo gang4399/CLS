@@ -2,7 +2,6 @@
 DOMAIN,analysis.chujingapp.com
 DOMAIN,prod.chujingapp.com
 DOMAIN-SUFFIX,chujingapp.com
-DOMAIN,metrics1-drcn.dt.dbankcloud.cn
 DOMAIN,store-drcn.hispace.dbankcloud.com
 DOMAIN,updatesaas.platform.dbankcloud.com
 DOMAIN,httpdns.platform.dbankcloud.com
