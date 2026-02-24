@@ -6,6 +6,9 @@ DOMAIN,store-drcn.hispace.dbankcloud.com
 DOMAIN,updatesaas.platform.dbankcloud.com
 DOMAIN,httpdns.platform.dbankcloud.com
 DOMAIN-SUFFIX,platform.dbankcloud.com
+DOMAIN-SUFFIX,dbankcloud.com
+DOMAIN-SUFFIX,dbankcloud.cn
+DOMAIN-SUFFIX,dbankcdn.com
 
 # Google Play Store专用规则
 DOMAIN-SUFFIX,play.google.com
