@@ -2,7 +2,9 @@
 DOMAIN,prod.chujingapp.com
 DOMAIN,analysis.chujingapp.com
 DOMAIN-SUFFIX,chujingapp.com
-DOMAIN-SUFFIX,updatesaas.platform.dbankcloud.com
+DOMAIN,metrics1-drcn.dt.dbankcloud.cn
+DOMAIN,updatesaas.platform.dbankcloud.com
+DOMAIN-SUFFIX,platform.dbankcloud.com
 
 # Google Play Store专用规则
 DOMAIN-SUFFIX,play.google.com
