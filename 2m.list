@@ -1,9 +1,11 @@
 # 出境易容器专用规则
-DOMAIN,prod.chujingapp.com
 DOMAIN,analysis.chujingapp.com
+DOMAIN,prod.chujingapp.com
 DOMAIN-SUFFIX,chujingapp.com
 DOMAIN,metrics1-drcn.dt.dbankcloud.cn
+DOMAIN,store-drcn.hispace.dbankcloud.com
 DOMAIN,updatesaas.platform.dbankcloud.com
+DOMAIN,httpdns.platform.dbankcloud.com
 DOMAIN-SUFFIX,platform.dbankcloud.com
 
 # Google Play Store专用规则
