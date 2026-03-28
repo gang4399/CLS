@@ -46,6 +46,11 @@ dns:
       - +.googlevideo.com
       - +.android.com
       - +.youtube.com
+      - +.openai.com
+      - +.chatgpt.com
+      - +.anthropic.com
+      - +.claude.ai
+      - +.gemini.google.com
     # ============================
 
 tun:
