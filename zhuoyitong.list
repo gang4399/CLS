@@ -1,0 +1,8 @@
+# --- 卓易通 / 卓易科技 ---
+DOMAIN-SUFFIX,droi.com
+DOMAIN-SUFFIX,droitong.com
+DOMAIN-SUFFIX,droigroup.com
+DOMAIN-SUFFIX,droibaascdn.com
+
+# --- 第三方安全验签 / 证书验证 ---
+# DOMAIN-SUFFIX,pki.goog

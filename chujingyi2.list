@@ -1,0 +1,21 @@
+# >>> 出境易 & GMS 核心分流 (主系统兼容版)
+
+# --- Google 框架证书验证 ---
+DOMAIN-SUFFIX,pki.goog
+
+# --- Google 商店基础 API ---
+DOMAIN,android.clients.google.com
+DOMAIN,android.apis.google.com
+DOMAIN,play.googleapis.com
+DOMAIN,accounts.google.com
+
+# --- Play 商店应用下载 (走原生港专带宽) ---
+DOMAIN-SUFFIX,gvt1.com
+DOMAIN-SUFFIX,gvt2.com
+DOMAIN-SUFFIX,gvt3.com
+DOMAIN-SUFFIX,ggpht.com
+
+# --- 出境易 App 专属连接 ---
+DOMAIN-SUFFIX,chujingyi.com
+DOMAIN-SUFFIX,metasv.com
+DOMAIN-KEYWORD,chujingyi

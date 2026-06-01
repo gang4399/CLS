@@ -1,0 +1,363 @@
+# 状态持久化配置，核心缓存提升韧性
+profile:
+  store-selected: true
+  store-fake-ip: true
+
+# 移动端日志 warning 模式省资源
+log-level: warning
+
+# 外部 http 面板，局域网均可访问本机IP
+external-controller: 0.0.0.0:9090
+secret: "clash"
+
+# 本地 http 面板
+# external-controller: 127.0.0.1:9090
+# external-ui: ui
+# external-ui-url: "https://github.com/metacubex/metacubexd/archive/refs/heads/gh-pages.zip"
+
+# 开启 TCP 并发提升首屏加载速度
+tcp-concurrent: true
+
+# 关闭 IPv6 规避分流泄露风险
+ipv6: false
+
+# 开启统一延迟显示，让节点切换选择时感官更一致
+unified-delay: true
+
+# 进程匹配模式：strict 未识别交由rule，always 强制识别进程优先 （容器沙盒环境或许增益）
+find-process-mode: always
+
+# TCP 长连接保活参数，减少代理断线重连开销
+keep-alive-idle: 180
+keep-alive-interval: 30
+
+# 开启后内核将由本地 .dat 数据库驱动分流逻辑
+geodata-mode: true
+
+# 自动化资源管理：自动从 GitHub 拉取最新高精度数据库
+geo-auto-update: true
+
+# 更新间隔设为3天
+geo-update-interval: 72
+
+# 自动化资源下载链接，配合规则采用轻量级专用数据源
+geox-url:
+  geoip: "https://raw.githubusercontent.com/Loyalsoldier/geoip/release/geoip-only-cn-private.dat"
+  geosite: "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat"
+  mmdb: "https://raw.githubusercontent.com/Loyalsoldier/geoip/release/Country-only-cn-private.mmdb"
+
+dns:
+  # 开启内置 DNS 模块
+  enable: true
+
+  # 基于 QUIC 协议 DoH3 极速握手
+  prefer-h3: true
+
+  # 使用 ARC 高级缓存算法
+  cache-algorithm: arc
+
+  # 监听地址
+  listen: 0.0.0.0:1053
+
+  # 禁用 IPv6 解析
+  ipv6: false
+
+  # 开启 Fake-IP 模式
+  enhanced-mode: fake-ip
+
+  # Fake-IP 池段
+  fake-ip-range: 198.18.0.1/16
+
+  # Fake-IP 过滤模式：黑名单模式，名单内域名返回真实 IP
+  fake-ip-filter-mode: blacklist
+
+  # 基础直连过滤名单
+  fake-ip-filter:
+    - '+.lan'
+    - '+.local'
+    - '+.direct'
+
+    # NTP 时间同步全覆盖
+    - 'time.android.com'
+    - 'time.cloudflare.com'
+    - 'time.apple.com'
+    - 'ntp*.aliyun.com'
+    - 'pool.ntp.org'
+    - '+.pool.ntp.org'
+    - 'time1.cloud.tencent.com'
+
+    # 腾讯/阿里/国家 NTP
+    - '+.ntp.tencent.com'
+    - '+.ntp1.aliyun.com'
+    - '+.ntp.ntsc.ac.cn'
+    - '+.cn.ntp.org.cn'
+
+    # 微软网络探测
+    - '+.msftncsi.com'
+    - '+.msftconnecttest.com'
+
+    # 华为/鸿蒙系统服务（与 sniffer skip-domain 保持一致）
+    - '+.huawei.com'
+    - '+.dbankcloud.cn'
+    - '+.dbankcloud.com'
+    - '+.hicloud.com'
+    - '+.huaweicloud.com'
+    - '+.droi.com'
+    - '+.droitong.com'
+    - '+.droigroup.com'
+    - '+.droibaascdn.com'
+    - 'connectivitycheck.platform.hicloud.com'
+
+    # Google 中国及 GMS 核心
+    - 'lens.l.google.com'
+    - 'google.cn'
+    - '+.google.cn'
+    - 'checkin.google.com'
+    - 'www.googleapis.com'
+    - 'oauth2.googleapis.com'
+    - '+.services.googleapis.cn'
+    - '+.xn--ngstr-lra8j.com'
+    - 'mtalk.google.com'
+    - 'alt*.mtalk.google.com'
+    - 'android.clients.google.com'
+    - 'connectivity.gstatic.com'
+    - 'connectivitycheck.gstatic.com'
+
+  # 基础解析：核心底座解析（仅用于解析 DoH/DoT 服务器域名本身）
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+
+  # 加密 DoH 防止干扰
+  nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+
+  # 国外解析：强制域名形式 DoH，确保触发 DoH3 握手逻辑
+  fallback:
+    - https://dns.google/dns-query
+    - https://cloudflare-dns.com/dns-query
+
+  # 代理节点域名解析：双 DoH 防单点故障
+  proxy-server-nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+
+  # 精准解析策略：确保核心服务解析结果纯净
+  nameserver-policy:
+
+    # Google、YouTube 及 Cloudflare（DoH3 核心）
+    "geosite:google,g-core,youtube,cloudflare":
+      - https://dns.google/dns-query
+      - https://cloudflare-dns.com/dns-query
+
+    # OpenAI 及 AI 相关服务
+    "geosite:openai,gemini,claude,anthropic":
+      - https://dns.google/dns-query
+      - https://cloudflare-dns.com/dns-query
+
+    # Anthropic/Claude 域名兜底（geosite 暂无对应条目）
+    "DOMAIN-SUFFIX:anthropic.com,DOMAIN-SUFFIX:claude.ai":
+      - https://dns.google/dns-query
+      - https://cloudflare-dns.com/dns-query
+
+    # 国际站点相关服务
+    "geosite:tiktok,telegram":
+      - https://dns.google/dns-query
+      - https://cloudflare-dns.com/dns-query
+
+    # 国内流量及私有地址直连
+    "geosite:cn,private":
+      - https://dns.alidns.com/dns-query
+      - https://doh.pub/dns-query
+
+  # 强制丢弃污染结果（仅保留真实污染段）
+  fallback-filter:
+    geoip: true
+    geoip-code: CN
+    ipcidr:
+      - 240.0.0.0/4
+      - 0.0.0.0/8
+      - 127.0.0.0/8
+      - 169.254.0.0/16
+      - 192.0.2.0/24
+      - 198.51.100.0/24
+      - 203.0.113.0/24
+
+  # 缓存无效域名
+  nxdomain-cache: true
+
+# 流量嗅探：还原 fake-ip 下的真实域名，确保分流规则精准命中
+sniffer:
+  enable: true
+
+  # 允许纯 IP 连接尝试还原真实域名
+  # Fake-IP + TUN + GMS 环境下收益明显
+  parse-pure-ip: true
+
+  sniff:
+    HTTP:
+      ports: [80, 8080-8880]
+      # 强制覆写目标地址为嗅探到的域名
+      override-destination: true
+
+    TLS:
+      ports: [443, 8443]
+      # TLS SNI 是当前主力域名恢复来源
+      # 对 OpenAI / YouTube / Telegram / TikTok 稳定性提升明显
+      override-destination: true
+
+    # HarmonyOS NEXT 手机端 QUIC 保守策略
+    # 仅保留 443，避免 8443 引入大量无收益 UDP sniff
+    QUIC:
+      ports: [443]
+
+  # 强制对关键境外服务恢复真实域名，提升 Fake-IP + geosite 命中质量
+  force-domain:
+    - "+.googlevideo.com"
+    - "+.youtube.com"
+    - "+.ytimg.com"
+    - "+.openai.com"
+    - "+.chatgpt.com"
+    - "+.oaistatic.com"
+    - "+.oaiusercontent.com"
+    - "+.anthropic.com"
+    - "+.claude.ai"
+    - "+.googleapis.com"
+    - "+.telegram.org"
+    - "+.t.me"
+    - "+.tiktok.com"
+    - "+.tiktokcdn.com"
+    - "+.byteoversea.com"
+    - "+.musical.ly"
+
+  # 跳过局域网/广播/容器桥接源地址的嗅探，降低手机功耗
+  skip-src-address:
+    - 127.0.0.0/8
+    - 10.0.0.0/8
+    - 172.16.0.0/12
+    - 192.168.0.0/16
+    - 169.254.0.0/16
+
+  # 跳过嗅探名单：系统级服务、证书固定域名、无需域名路由的流量
+  skip-domain:
+
+    # Apple 推送与系统服务（证书固定，嗅探会导致连接失败）
+    - "+.push.apple.com"
+    - "+.apple.com"
+
+    # 小米/MIUI 系统服务
+    - "dlg.io.mi.com"
+    - "+.mi.com"
+    - "+.miui.com"
+
+    # 华为/鸿蒙系统服务（与 fake-ip-filter 保持一致）
+    - '+.huawei.com'
+    - '+.dbankcloud.cn'
+    - '+.dbankcloud.com'
+    - '+.hicloud.com'
+    - '+.huaweicloud.com'
+    - '+.droi.com'
+    - '+.droitong.com'
+    - '+.droigroup.com'
+    - '+.droibaascdn.com'
+    - 'connectivitycheck.platform.hicloud.com'
+
+    # NTP 时间同步（嗅探无意义，直连即可）
+    - "time.*.com"
+    - "+.pool.ntp.org"
+    - "+.ntp.tencent.com"
+    - "ntp*.aliyun.com"
+
+    # 微软网络连通性探测（NCSI）
+    - "+.msftncsi.com"
+    - "+.msftconnecttest.com"
+
+    # Google GMS 核心通道（已在 fake-ip-filter 白名单，无需重复嗅探）
+    - "connectivitycheck.gstatic.com"
+    - "connectivity.gstatic.com"
+    - "android.clients.google.com"
+    - "mtalk.google.com"
+
+    # 企业办公类（对 sniff 较敏感，避免连接异常）
+    - "+.wecom.qq.com"
+    - "+.meeting.tencent.com"
+
+tun:
+  # 开启 TUN 模式
+  enable: true
+
+  # 混合栈模式：HarmonyOS NEXT 当前最均衡方案
+  stack: mixed
+
+  # 自动路由与网卡探测
+  auto-route: true
+  auto-detect-interface: true
+
+  # 严格路由
+  strict-route: true
+
+  # 劫持所有 53 端口 DNS 请求
+  dns-hijack:
+    - any:53
+    - tcp://any:53
+    - udp://any:53
+    - tcp://[::]:53
+    - udp://[::]:53
+
+  # 路由地址：标准写法全覆盖
+  route-address:
+    - 0.0.0.0/1
+    - 128.0.0.0/1
+    - "::/1"
+    - "8000::/1"
+
+  # 排除局域网、私有及 CGNAT 地址段
+  route-exclude-address:
+    - 192.168.0.0/16
+    - 10.0.0.0/8
+    - 172.16.0.0/12
+    - 127.0.0.0/8
+    - 169.254.0.0/16
+    - 224.0.0.0/4
+    - 100.64.0.0/10
+
+  # MTU 1400：5G/WiFi 切换最稳
+  mtu: 1400
+
+rule-providers:
+  openai:
+    type: http
+    behavior: domain
+    format: yaml
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/openai.yaml"
+    path: ./ruleset/openai.yaml
+    interval: 86400
+  anthropic:
+    type: http
+    behavior: domain
+    format: yaml
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/anthropic.yaml"
+    path: ./ruleset/anthropic.yaml
+    interval: 86400
+  gemini:
+    type: http
+    behavior: domain
+    format: yaml
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google-gemini.yaml"
+    path: ./ruleset/gemini.yaml
+    interval: 86400
+  telegram-ip:
+    type: http
+    behavior: ipcidr
+    format: yaml
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.yaml"
+    path: ./ruleset/telegram-ip.yaml
+    interval: 86400
+  tiktok:
+    type: http
+    behavior: domain
+    format: yaml
+    url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.yaml"
+    path: ./ruleset/tiktok.yaml
+    interval: 86400
