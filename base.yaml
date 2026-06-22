@@ -152,7 +152,7 @@ dns:
       - https://cloudflare-dns.com/dns-query
 
     # OpenAI 及 AI 相关服务
-    "geosite:openai,anthropic":
+    "geosite:openai":
       - https://dns.google/dns-query
       - https://cloudflare-dns.com/dns-query
 
