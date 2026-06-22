@@ -147,12 +147,12 @@ dns:
   nameserver-policy:
 
     # Google、YouTube 及 Cloudflare（DoH3 核心）
-    "geosite:google,g-core,youtube,cloudflare":
+    "geosite:google,youtube,cloudflare":
       - https://dns.google/dns-query
       - https://cloudflare-dns.com/dns-query
 
     # OpenAI 及 AI 相关服务
-    "geosite:openai,gemini,claude,anthropic":
+    "geosite:openai,gemini,anthropic":
       - https://dns.google/dns-query
       - https://cloudflare-dns.com/dns-query
 
