@@ -28,7 +28,7 @@ unified-delay: true
 find-process-mode: always
 
 # TCP 长连接保活参数，减少代理断线重连开销
-keep-alive-idle: 180
+keep-alive-idle: 360
 keep-alive-interval: 30
 
 # 开启后内核将由本地 .dat 数据库驱动分流逻辑
