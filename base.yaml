@@ -7,8 +7,8 @@ profile:
 log-level: warning
 
 # 外部 http 面板，局域网均可访问本机IP
-external-controller: 0.0.0.0:9090
-secret: "clash"
+# external-controller: 0.0.0.0:9090
+# secret: "clash"
 
 # 本地 http 面板
 # external-controller: 127.0.0.1:9090
@@ -19,13 +19,13 @@ secret: "clash"
 tcp-concurrent: true
 
 # 关闭 IPv6 规避分流泄露风险
-ipv6: false
+# ipv6: false
 
 # 开启统一延迟显示，让节点切换选择时感官更一致
 unified-delay: true
 
 # 进程匹配模式：strict 未识别交由rule，always 强制识别进程优先 （容器沙盒环境或许增益）
-find-process-mode: always
+find-process-mode: strict
 
 # TCP 长连接保活参数，减少代理断线重连开销
 keep-alive-idle: 360
@@ -60,7 +60,7 @@ dns:
   listen: 0.0.0.0:1053
 
   # 禁用 IPv6 解析
-  ipv6: false
+  # ipv6: false
 
   # 开启 Fake-IP 模式
   enhanced-mode: fake-ip
@@ -81,7 +81,13 @@ dns:
     - 'time.android.com'
     - 'time.cloudflare.com'
     - 'time.apple.com'
-    - 'ntp*.aliyun.com'
+    - 'ntp1.aliyun.com'
+    - 'ntp2.aliyun.com'
+    - 'ntp3.aliyun.com'
+    - 'ntp4.aliyun.com'
+    - 'ntp5.aliyun.com'
+    - 'ntp6.aliyun.com'
+    - 'ntp7.aliyun.com'
     - 'pool.ntp.org'
     - '+.pool.ntp.org'
     - 'time1.cloud.tencent.com'
@@ -118,7 +124,7 @@ dns:
     - '+.services.googleapis.cn'
     - '+.xn--ngstr-lra8j.com'
     - 'mtalk.google.com'
-    - 'alt*.mtalk.google.com'
+    - '+.mtalk.google.com'
     - 'android.clients.google.com'
     - 'connectivity.gstatic.com'
     - 'connectivitycheck.gstatic.com'
@@ -264,10 +270,19 @@ sniffer:
     - 'connectivitycheck.platform.hicloud.com'
 
     # NTP 时间同步（嗅探无意义，直连即可）
-    - "time.*.com"
+    - "time.android.com"
+    - "time.cloudflare.com"
+    - "time.apple.com"
+    - "time.google.com"
     - "+.pool.ntp.org"
     - "+.ntp.tencent.com"
-    - "ntp*.aliyun.com"
+    - 'ntp1.aliyun.com'
+    - 'ntp2.aliyun.com'
+    - 'ntp3.aliyun.com'
+    - 'ntp4.aliyun.com'
+    - 'ntp5.aliyun.com'
+    - 'ntp6.aliyun.com'
+    - 'ntp7.aliyun.com'
 
     # 微软网络连通性探测（NCSI）
     - "+.msftncsi.com"
