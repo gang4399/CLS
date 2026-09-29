@@ -163,6 +163,9 @@ dns:
       - https://cloudflare-dns.com/dns-query
 
     # Anthropic/Claude 域名兜底（geosite 暂无对应条目）
+    "geosite:anthropic":
+      - https://dns.google/dns-query
+      - https://cloudflare-dns.com/dns-query
     "DOMAIN-SUFFIX:anthropic.com,DOMAIN-SUFFIX:claude.ai":
       - https://dns.google/dns-query
       - https://cloudflare-dns.com/dns-query
