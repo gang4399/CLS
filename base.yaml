@@ -120,7 +120,6 @@ dns:
     - '+.google.cn'
     - 'checkin.google.com'
     - 'www.googleapis.com'
-    - 'oauth2.googleapis.com'
     - '+.services.googleapis.cn'
     - '+.xn--ngstr-lra8j.com'
     - 'mtalk.google.com'
