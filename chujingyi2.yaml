@@ -2,11 +2,8 @@ payload:
   # --- Google 框架证书验证 ---
   - DOMAIN-SUFFIX,pki.goog
 
-  # --- Google 商店基础 API ---
+  # --- Google 商店 API ---
   - DOMAIN,android.clients.google.com
-  - DOMAIN,android.apis.google.com
-  - DOMAIN,play.googleapis.com
-  - DOMAIN,accounts.google.com
 
   # --- Play 商店应用下载 ---
   - DOMAIN-SUFFIX,gvt1.com
