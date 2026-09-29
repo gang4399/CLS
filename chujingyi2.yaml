@@ -1,11 +1,7 @@
 payload:
-  # --- Google 框架证书验证 ---
-  - DOMAIN-SUFFIX,pki.goog
   # --- Google 账号与 GMS 核心 ---
   - DOMAIN,android.clients.google.com
   - DOMAIN-SUFFIX,clients.google.com
-  - DOMAIN,accounts.google.com
-  - DOMAIN,oauth2.googleapis.com
   # --- 出境易 App 专属连接 ---
   - DOMAIN-SUFFIX,chujingyi.com
   - DOMAIN-SUFFIX,chujingapp.com
