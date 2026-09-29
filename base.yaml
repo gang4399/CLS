@@ -4,7 +4,7 @@ profile:
   store-fake-ip: true
 
 # 移动端日志 warning 模式省资源
-log-level: warning
+# log-level: warning
 
 # 外部 http 面板，局域网均可访问本机IP
 # external-controller: 0.0.0.0:9090
