@@ -278,6 +278,7 @@ sniffer:
     - "time.google.com"
     - "+.pool.ntp.org"
     - "+.ntp.tencent.com"
+    - '+.ntp.aliyun.com'
     - 'ntp1.aliyun.com'
     - 'ntp2.aliyun.com'
     - 'ntp3.aliyun.com'
@@ -291,10 +292,11 @@ sniffer:
     - "+.msftconnecttest.com"
 
     # Google GMS 核心通道（已在 fake-ip-filter 白名单，无需重复嗅探）
-    - "connectivitycheck.gstatic.com"
-    - "connectivity.gstatic.com"
-    - "android.clients.google.com"
-    - "mtalk.google.com"
+    - 'mtalk.google.com'
+    - '+.mtalk.google.com'
+    - 'android.clients.google.com'
+    - 'connectivity.gstatic.com'
+    - 'connectivitycheck.gstatic.com'
 
     # 企业办公类（对 sniff 较敏感，避免连接异常）
     - "+.wecom.qq.com"
