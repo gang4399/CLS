@@ -94,7 +94,7 @@ dns:
 
     # 腾讯/阿里/国家 NTP
     - '+.ntp.tencent.com'
-    - '+.ntp1.aliyun.com'
+    - '+.ntp.aliyun.com'
     - '+.ntp.ntsc.ac.cn'
     - '+.cn.ntp.org.cn'
 
