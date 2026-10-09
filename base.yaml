@@ -32,6 +32,11 @@ geox-url:
 
 dns:
   enable: true
+
+  # 关闭 DNS IPv6 (AAAA 记录解析)：仅作为测试项，默认保持注释
+  # 测试时取消注释本行，防止解析出 IPv6 地址引发连通性问题
+  # ipv6: false
+
   prefer-h3: true
   cache-algorithm: arc
   listen: 0.0.0.0:1053
@@ -128,6 +133,7 @@ dns:
       - https://dns.google/dns-query
       - https://cloudflare-dns.com/dns-query
 
+    # [改] 修正为合法写法
     "+.anthropic.com,+.claude.ai":
       - https://dns.google/dns-query
       - https://cloudflare-dns.com/dns-query
