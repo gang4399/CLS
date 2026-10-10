@@ -3,7 +3,7 @@ payload:
   - DOMAIN,android.clients.google.com
   # - DOMAIN-SUFFIX,clients.google.com
   # --- 出境易 App 专属连接 ---
-  - DOMAIN-SUFFIX,chujingyi.com
+  # - DOMAIN-SUFFIX,chujingyi.com
   - DOMAIN-SUFFIX,chujingapp.com
-  - DOMAIN-SUFFIX,metasv.com
-  - DOMAIN-KEYWORD,chujingyi
+  # - DOMAIN-SUFFIX,metasv.com
+  # - DOMAIN-KEYWORD,chujingyi
