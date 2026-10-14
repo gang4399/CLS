@@ -1,0 +1,8 @@
+# --- Google 账号与 GMS 核心 ---
+DOMAIN,android.clients.google.com
+# DOMAIN-SUFFIX,clients.google.com
+# --- 出境易 App 专属连接 ---
+# DOMAIN-SUFFIX,chujingyi.com
+# DOMAIN-SUFFIX,chujingapp.com
+# DOMAIN-SUFFIX,metasv.com
+# DOMAIN-KEYWORD,chujingyi
