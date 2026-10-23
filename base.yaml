@@ -112,8 +112,10 @@ dns:
     - https://dns.alidns.com/dns-query
     - https://doh.pub/dns-query
 
-  # [改] 已删除 fallback 与 fallback-filter：
-  # 避免国内 CDN 域名被 Google/Cloudflare 解析成海外节点
+  # 国外解析：强制域名形式 DoH，确保触发 DoH3 握手逻辑
+  fallback:
+    - https://dns.google/dns-query
+    - https://cloudflare-dns.com/dns-query
 
   proxy-server-nameserver:
     - https://dns.alidns.com/dns-query
@@ -145,6 +147,22 @@ dns:
     "geosite:cn,private":
       - https://dns.alidns.com/dns-query
       - https://doh.pub/dns-query
+
+  # 精准启用 fallback：仅被墙域名或命中污染段时才采用海外解析
+  # 不再按"结果 IP 是否在 CN"判断，避免国内冷门 CDN 域名被误换成海外节点
+  # 若日志提示找不到 gfw 分类，删除 geosite 两行并改回 geoip: true + geoip-code: CN
+  fallback-filter:
+    geoip: false
+    geosite:
+      - gfw
+    ipcidr:
+      - 240.0.0.0/4
+      - 0.0.0.0/8
+      - 127.0.0.0/8
+      - 169.254.0.0/16
+      - 192.0.2.0/24
+      - 198.51.100.0/24
+      - 203.0.113.0/24
 
   nxdomain-cache: true
 
