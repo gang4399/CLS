@@ -177,10 +177,13 @@ dns:
       - "https://cloudflare-dns.com/dns-query"
 
   # 污染地址过滤：nameserver 结果落入这些网段时，改用 fallback
+  # 含保留、组播、广播及文档示例网段；不要加入私有网段（会误伤内网域名）
   fallback-filter:
     geoip: false
     ipcidr:
       - 240.0.0.0/4
+      - 224.0.0.0/4
+      - 255.255.255.255/32
       - 0.0.0.0/8
       - 127.0.0.0/8
       - 169.254.0.0/16
