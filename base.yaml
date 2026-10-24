@@ -1,8 +1,12 @@
 # ============================================================
 # Mihomo Ninja / HarmonyOS NEXT 基础配置
-# 基准：你最新粘贴的 base.yaml
 # 目标：鸿蒙 NEXT + 卓易通/出境易容器应用分流
+# 桌面端使用时仅需改 tun.mtu（如 1450）
 # ============================================================
+
+# ---------- 日志 ----------
+# 日常用 warning 省电；排查问题时临时改成 info
+log-level: warning
 
 # ---------- 状态持久化 ----------
 profile:
@@ -19,6 +23,7 @@ keep-alive-idle: 360
 keep-alive-interval: 30
 
 # IPv6 测试开关：当前注释状态表示不在此处显式关闭
+# 测试时取消注释，并同时删除 dns 下 ipv6 的注释，以及 tun.route-address 里的 "::/1" 和 "8000::/1"
 # ipv6: false
 
 # ---------- GeoData ----------
@@ -41,9 +46,11 @@ dns:
   prefer-h3: true
 
   cache-algorithm: arc
-  listen: 0.0.0.0:1053
 
-  # 保留你最新配置中的状态：不显式关闭 DNS IPv6
+  # 仅本机监听；TUN 已通过 dns-hijack 接管，无需对局域网开放
+  listen: 127.0.0.1:1053
+
+  # 当前不显式关闭 DNS IPv6（测试项）
   # ipv6: false
 
   enhanced-mode: fake-ip
@@ -52,21 +59,28 @@ dns:
   # 黑名单模式：命中名单的域名返回真实 IP
   fake-ip-filter-mode: blacklist
   fake-ip-filter:
+    # 国内域名返回真实 IP，由国内 DoH 解析，拿到最近的 CDN 节点
     - "geosite:cn"
     - "+.lan"
     - "+.local"
     - "+.direct"
 
-    # NTP 时间同步
+    # NTP 时间同步（半截通配符不可靠，逐条列出）
     - "time.android.com"
     - "time.cloudflare.com"
     - "time.apple.com"
-    - "ntp*.aliyun.com"
+    - "+.ntp.aliyun.com"
+    - "ntp1.aliyun.com"
+    - "ntp2.aliyun.com"
+    - "ntp3.aliyun.com"
+    - "ntp4.aliyun.com"
+    - "ntp5.aliyun.com"
+    - "ntp6.aliyun.com"
+    - "ntp7.aliyun.com"
     - "pool.ntp.org"
     - "+.pool.ntp.org"
     - "time1.cloud.tencent.com"
     - "+.ntp.tencent.com"
-    - "+.ntp1.aliyun.com"
     - "+.ntp.ntsc.ac.cn"
     - "+.cn.ntp.org.cn"
 
@@ -96,12 +110,12 @@ dns:
     - "+.services.googleapis.cn"
     - "+.xn--ngstr-lra8j.com"
     - "mtalk.google.com"
-    - "alt*.mtalk.google.com"
+    - "+.mtalk.google.com"
     - "android.clients.google.com"
     - "connectivity.gstatic.com"
     - "connectivitycheck.gstatic.com"
 
-  # 基础 DNS：用于解析 DoH 服务端等域名
+  # 基础 DNS：仅用于解析 DoH 服务端等域名
   default-nameserver:
     - 223.5.5.5
     - 119.29.29.29
@@ -133,7 +147,7 @@ dns:
       - "https://dns.google/dns-query"
       - "https://cloudflare-dns.com/dns-query"
 
-    # Anthropic / Claude
+    # Anthropic / Claude（geosite 条目为占位，挂空无影响）
     "geosite:anthropic":
       - "https://dns.google/dns-query"
       - "https://cloudflare-dns.com/dns-query"
@@ -156,13 +170,13 @@ dns:
       - "https://dns.alidns.com/dns-query"
       - "https://doh.pub/dns-query"
 
-    # 原 fallback-filter.geosite:gfw 的策略迁移
-    # 注意：仅在当前 GeoSite 数据库确实包含 gfw 标签时有效
+    # 被墙域名直接使用海外 DNS（等效于 fallback-filter 的 geosite 判断）
+    # 仅在 GeoSite 数据库包含 gfw 标签时有效；加载报错时先删除本条
     "geosite:gfw":
       - "https://dns.google/dns-query"
       - "https://cloudflare-dns.com/dns-query"
 
-  # 保留异常地址过滤；不再使用旧式 geosite 过滤项
+  # 污染地址过滤：nameserver 结果落入这些网段时，改用 fallback
   fallback-filter:
     geoip: false
     ipcidr:
@@ -188,6 +202,7 @@ sniffer:
       ports:
         - 80
         - 8080-8880
+      # 不覆写目标地址，保留 App 自己选的 CDN IP
       override-destination: false
 
     TLS:
@@ -249,11 +264,28 @@ sniffer:
     - "+.droibaascdn.com"
     - "connectivitycheck.platform.hicloud.com"
 
-    # NTP
+    # 微信 / 微博：不嗅探，减少自有协议被干扰
+    - "+.weixin.qq.com"
+    - "+.wechat.com"
+    - "+.qpic.cn"
+    - "+.qlogo.cn"
+    - "+.weibo.com"
+    - "+.weibo.cn"
+    - "+.sinaimg.cn"
+    - "+.sinaimg.com"
+
+    # NTP（半截通配符不可靠，逐条列出）
     - "time.*.com"
     - "+.pool.ntp.org"
     - "+.ntp.tencent.com"
-    - "ntp*.aliyun.com"
+    - "+.ntp.aliyun.com"
+    - "ntp1.aliyun.com"
+    - "ntp2.aliyun.com"
+    - "ntp3.aliyun.com"
+    - "ntp4.aliyun.com"
+    - "ntp5.aliyun.com"
+    - "ntp6.aliyun.com"
+    - "ntp7.aliyun.com"
 
     # Microsoft NCSI
     - "+.msftncsi.com"
@@ -264,6 +296,7 @@ sniffer:
     - "connectivity.gstatic.com"
     - "android.clients.google.com"
     - "mtalk.google.com"
+    - "+.mtalk.google.com"
 
     # 企业办公服务
     - "+.wecom.qq.com"
@@ -274,12 +307,14 @@ sniffer:
 # ============================================================
 tun:
   enable: true
+
+  # 若仍有卡顿，可测试改为 system
   stack: mixed
+
   auto-route: true
   auto-detect-interface: true
   strict-route: true
 
-  # 保留 DNS 劫持策略，去除重复声明
   dns-hijack:
     - "any:53"
     - "tcp://any:53"
@@ -288,8 +323,7 @@ tun:
   route-address:
     - 0.0.0.0/1
     - 128.0.0.0/1
-
-    # 保留你最新配置中的 IPv6 路由
+    # IPv6 路由（做 IPv6 测试时删除下面两行）
     - "::/1"
     - "8000::/1"
 
@@ -303,7 +337,7 @@ tun:
     - 224.0.0.0/4
     - 100.64.0.0/10
 
-  # 手机端默认值；桌面端单独测试 1450
+  # 手机端默认值；桌面端可改为 1450
   mtu: 1400
 
 # ============================================================
