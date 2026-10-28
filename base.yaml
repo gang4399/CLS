@@ -7,6 +7,10 @@
 # fallback、nameserver 等）可能覆盖本文件同名项，修改后必须同步。
 # 两个共用列表（fake-ip-filter / sniffer.skip-domain）里标注
 # [共用] 的分组必须逐条一致，改一处同步改另一处。
+#
+# 注意：本文件作为 subconverter 的 clash_rule_base 使用，里面写的
+# rules: 段会被 ini 生成的规则覆盖，所以不要在这里写 rules:，
+# 规则统一在 2mm.ini 的 ruleset= 里引用。
 # ============================================================
 
 # ---------- 日志 ----------
@@ -122,6 +126,14 @@ dns:
     - "android.clients.google.com"
     - "connectivity.gstatic.com"
     - "connectivitycheck.gstatic.com"
+
+    # ---- [共用] HP 打印机 / 打印服务（直连） ----
+    - "+.hp.com"
+    - "+.hp.com.cn"
+    - "+.hpeprint.com"
+    - "+.hpconnected.com"
+    - "+.hpsmart.com"
+    - "+.instantink.com"
 
   # 基础 DNS：仅用于解析 DoH 服务端等域名
   default-nameserver:
@@ -329,6 +341,14 @@ sniffer:
     - "connectivity.gstatic.com"
     - "connectivitycheck.gstatic.com"
 
+    # ---- [共用] HP 打印机 / 打印服务（直连） ----
+    - "+.hp.com"
+    - "+.hp.com.cn"
+    - "+.hpeprint.com"
+    - "+.hpconnected.com"
+    - "+.hpsmart.com"
+    - "+.instantink.com"
+
 # ============================================================
 # TUN
 # ============================================================
@@ -354,7 +374,7 @@ tun:
     - "::/1"
     - "8000::/1"
 
-  # 排除局域网、私有地址、组播及 CGNAT
+  # 排除局域网、私有地址、组播及 CGNAT（含打印机发现所需的 mDNS 组播）
   route-exclude-address:
     - 192.168.0.0/16
     - 10.0.0.0/8
@@ -413,4 +433,13 @@ rule-providers:
     format: yaml
     url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/tiktok.yaml"
     path: ./ruleset/tiktok.yaml
+    interval: 86400
+
+  # HP 打印机直连规则集
+  hp-direct:
+    type: http
+    behavior: classical
+    format: text
+    url: "https://raw.githubusercontent.com/gang4399/CLS/refs/heads/main/hp-direct.list"
+    path: ./ruleset/hp-direct.list
     interval: 86400
