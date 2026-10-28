@@ -2,11 +2,16 @@
 # Mihomo Ninja / HarmonyOS NEXT 基础配置
 # 目标：鸿蒙 NEXT + 卓易通/出境易容器应用分流
 # 桌面端使用时仅需改 tun.mtu（如 1450）
+#
+# 维护提醒：客户端 UI「覆写增强」里的 DNS 输入框（fake-ip-filter、
+# fallback、nameserver 等）可能覆盖本文件同名项，修改后必须同步。
+# 两个共用列表（fake-ip-filter / sniffer.skip-domain）里标注
+# [共用] 的分组必须逐条一致，改一处同步改另一处。
 # ============================================================
 
 # ---------- 日志 ----------
-# 日常用 warning 省电；排查问题时临时改成 info
-log-level: warning
+# 当前排查期用 info；稳定后改回 warning 省电
+log-level: info
 
 # ---------- 状态持久化 ----------
 profile:
@@ -59,16 +64,23 @@ dns:
   # 黑名单模式：命中名单的域名返回真实 IP
   fake-ip-filter-mode: blacklist
   fake-ip-filter:
+    # ---- 本列表独有 ----
     # 国内域名返回真实 IP，由国内 DoH 解析，拿到最近的 CDN 节点
     - "geosite:cn"
+    # 本地域名
     - "+.lan"
     - "+.local"
     - "+.direct"
 
-    # NTP 时间同步（半截通配符不可靠，逐条列出）
+    # ---- [共用] NTP 时间同步 ----
     - "time.android.com"
-    - "time.cloudflare.com"
     - "time.apple.com"
+    - "time.cloudflare.com"
+    - "time.google.com"
+    - "pool.ntp.org"
+    - "+.pool.ntp.org"
+    - "time1.cloud.tencent.com"
+    - "+.ntp.tencent.com"
     - "+.ntp.aliyun.com"
     - "ntp1.aliyun.com"
     - "ntp2.aliyun.com"
@@ -77,18 +89,14 @@ dns:
     - "ntp5.aliyun.com"
     - "ntp6.aliyun.com"
     - "ntp7.aliyun.com"
-    - "pool.ntp.org"
-    - "+.pool.ntp.org"
-    - "time1.cloud.tencent.com"
-    - "+.ntp.tencent.com"
     - "+.ntp.ntsc.ac.cn"
     - "+.cn.ntp.org.cn"
 
-    # 微软网络连通性检测
+    # ---- [共用] 微软网络连通性检测 ----
     - "+.msftncsi.com"
     - "+.msftconnecttest.com"
 
-    # 华为 / 鸿蒙服务
+    # ---- [共用] 华为 / 鸿蒙服务 ----
     - "+.huawei.com"
     - "+.dbankcloud.cn"
     - "+.dbankcloud.com"
@@ -100,7 +108,7 @@ dns:
     - "+.droibaascdn.com"
     - "connectivitycheck.platform.hicloud.com"
 
-    # Google 中国及 GMS
+    # ---- [共用] Google 中国及 GMS 核心 ----
     - "lens.l.google.com"
     - "google.cn"
     - "+.google.cn"
@@ -218,7 +226,7 @@ sniffer:
       ports:
         - 443
 
-  # 关键境外服务域名
+  # 关键境外服务域名：强制嗅探还原域名
   force-domain:
     - "+.googlevideo.com"
     - "+.youtube.com"
@@ -246,7 +254,8 @@ sniffer:
     - 169.254.0.0/16
 
   skip-domain:
-    # Apple
+    # ---- 本列表独有 ----
+    # Apple 推送与系统服务（证书固定）
     - "+.push.apple.com"
     - "+.apple.com"
 
@@ -254,18 +263,6 @@ sniffer:
     - "dlg.io.mi.com"
     - "+.mi.com"
     - "+.miui.com"
-
-    # Huawei / HarmonyOS
-    - "+.huawei.com"
-    - "+.dbankcloud.cn"
-    - "+.dbankcloud.com"
-    - "+.hicloud.com"
-    - "+.huaweicloud.com"
-    - "+.droi.com"
-    - "+.droitong.com"
-    - "+.droigroup.com"
-    - "+.droibaascdn.com"
-    - "connectivitycheck.platform.hicloud.com"
 
     # 微信 / 微博：不嗅探，减少自有协议被干扰
     - "+.weixin.qq.com"
@@ -277,9 +274,18 @@ sniffer:
     - "+.sinaimg.cn"
     - "+.sinaimg.com"
 
-    # NTP（半截通配符不可靠，逐条列出）
-    - "time.*.com"
+    # 企业办公服务（对嗅探敏感）
+    - "+.wecom.qq.com"
+    - "+.meeting.tencent.com"
+
+    # ---- [共用] NTP 时间同步 ----
+    - "time.android.com"
+    - "time.apple.com"
+    - "time.cloudflare.com"
+    - "time.google.com"
+    - "pool.ntp.org"
     - "+.pool.ntp.org"
+    - "time1.cloud.tencent.com"
     - "+.ntp.tencent.com"
     - "+.ntp.aliyun.com"
     - "ntp1.aliyun.com"
@@ -289,21 +295,39 @@ sniffer:
     - "ntp5.aliyun.com"
     - "ntp6.aliyun.com"
     - "ntp7.aliyun.com"
+    - "+.ntp.ntsc.ac.cn"
+    - "+.cn.ntp.org.cn"
 
-    # Microsoft NCSI
+    # ---- [共用] 微软网络连通性检测 ----
     - "+.msftncsi.com"
     - "+.msftconnecttest.com"
 
-    # Google GMS
-    - "connectivitycheck.gstatic.com"
-    - "connectivity.gstatic.com"
-    - "android.clients.google.com"
+    # ---- [共用] 华为 / 鸿蒙服务 ----
+    - "+.huawei.com"
+    - "+.dbankcloud.cn"
+    - "+.dbankcloud.com"
+    - "+.hicloud.com"
+    - "+.huaweicloud.com"
+    - "+.droi.com"
+    - "+.droitong.com"
+    - "+.droigroup.com"
+    - "+.droibaascdn.com"
+    - "connectivitycheck.platform.hicloud.com"
+
+    # ---- [共用] Google 中国及 GMS 核心 ----
+    - "lens.l.google.com"
+    - "google.cn"
+    - "+.google.cn"
+    - "checkin.google.com"
+    - "www.googleapis.com"
+    - "oauth2.googleapis.com"
+    - "+.services.googleapis.cn"
+    - "+.xn--ngstr-lra8j.com"
     - "mtalk.google.com"
     - "+.mtalk.google.com"
-
-    # 企业办公服务
-    - "+.wecom.qq.com"
-    - "+.meeting.tencent.com"
+    - "android.clients.google.com"
+    - "connectivity.gstatic.com"
+    - "connectivitycheck.gstatic.com"
 
 # ============================================================
 # TUN
