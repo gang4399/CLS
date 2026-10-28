@@ -1,0 +1,16 @@
+# HP 打印相关直连
+DOMAIN-SUFFIX,hp.com
+DOMAIN-SUFFIX,hp.com.cn
+DOMAIN-SUFFIX,hpeprint.com
+DOMAIN-SUFFIX,hpconnected.com
+DOMAIN-SUFFIX,hpsmart.com
+DOMAIN-SUFFIX,instantink.com
+DOMAIN-KEYWORD,hpeprint
+
+# 局域网（打印机发现 / IPP）
+DOMAIN-SUFFIX,local
+DOMAIN-SUFFIX,lan
+IP-CIDR,192.168.0.0/16,no-resolve
+IP-CIDR,10.0.0.0/8,no-resolve
+IP-CIDR,172.16.0.0/12,no-resolve
+IP-CIDR,169.254.0.0/16,no-resolve
